@@ -16,17 +16,22 @@ class LinkedList:
         if not self.head:
             print('No list exist')
         else:
-            flag = True
-            while count != num:
-                prev = temp
-                temp = temp.next
-                count += 1
-                if temp == None:
-                    print('Wrong Index')
-                    flag = False
-                    break
-            if flag:
-                prev.next = temp.next
+            temp = self.head
+            if num == 1:
+                self.head = temp.next
+            else:
+                flag = True
+                count = 1
+                while count != num:
+                    prev = temp
+                    temp = temp.next
+                    count += 1
+                    if not temp or count > num:
+                        print('Invalid Index')
+                        flag = False
+                        break
+                if flag:
+                    prev.next = temp.next
 
 
 def main():
