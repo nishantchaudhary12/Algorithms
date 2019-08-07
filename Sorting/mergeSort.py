@@ -1,40 +1,42 @@
 #merge sort
 
+
 import sys
 
 
-def merge(user_inp, start_index, mid, end_index):
-    n1 = mid - start_index + 1
-    n2 = end_index - start_index + 1
-    list1 = user_inp[start_index:mid+1]
-    list2 = user_inp[mid+1:end_index+1]
-    list1.append(sys.maxsize)
-    list2.append(sys.maxsize)
+def merge(arr, start, mid, end):
+    left = list()
+    right = list()
+    for i in range(mid - start + 1):
+        left.append(arr[start + i])
+    for j in range(end - mid):
+        right.append(arr[mid + j + 1])
+    left.append(sys.maxsize)
+    right.append(sys.maxsize)
+
     i = 0
     j = 0
-    for k in range(start_index, end_index+1):
-        if list1[i] <= list2[j]:
-            user_inp[k] = list1[i]
+    for k in range(start, end+1):
+        if left[i] <= right[j]:
+            arr[k] = left[i]
             i += 1
         else:
-            user_inp[k] = list2[j]
+            arr[k] = right[j]
             j += 1
-    return user_inp
 
 
-def merge_sort(user_inp, start_index, end_index):
-    if start_index < end_index:
-        mid = (start_index + end_index)//2
-        merge_sort(user_inp, start_index, mid)
-        merge_sort(user_inp, mid + 1, end_index)
-        user_inp = merge(user_inp, start_index, mid, end_index)
-
-    return user_inp
+def mergeSort(arr, start, end):
+    if start < end:
+        mid = (start + end) // 2
+        mergeSort(arr, start, mid)
+        mergeSort(arr, mid+1, end)
+        merge(arr, start, mid, end)
 
 
 def main():
-    user_inp = [5, 2, 4, 6, 1, 3]
-    print('Sorted Output:', merge_sort(user_inp, 0, 5))
+    arr = [38, 27, 43, 3, 9, 82, 10]
+    mergeSort(arr, 0, len(arr)-1)
+    print(arr)
 
 
 main()
